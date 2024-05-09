@@ -1,22 +1,23 @@
-from utils import is_valid
+from utils import is_valid, is_satisfiable, is_entailed
 
-def verification(formula):
-    # Vérifier la validité de la formule
-    valid, error = is_valid(formula)
+kb = ["p and (q or not r)", "p and q", "p if q iff r", "a and b", "a and not p"]
+
+# Définir la formule alpha à vérifier
+alpha = "p and not q"
+
+def verif_deduction(alpha):
+    # Vérifier si KB entraîne alpha
+    result = is_entailed(kb, alpha)
     # Afficher le résultat
-    if valid:
-        print(f"La formule  propositionnelle  :'{formula}' est valide.")
+    if result:
+        print(f" \n KB |= {alpha}")
     else:
-        print(f"La formule propositionnelle  :'{formula}' n'est pas valide. Erreur : {error}")
+        print(f"\n KB ne entraîne pas {alpha}")
 
 
-formula = input("Veuillez entrer une formule propositionnelle : ")
-verification(formula)
-# verification('p and (q or not r)')  # Doit imprimer: True
-# verification('p and q')  # Doit imprimer: True
-# verification('(p and q))')  # Doit imprimer: False
-# verification('p and q')  # Doit imprimer: True
-# verification('p if q iff r')  # Doit imprimer: True
-# verification('(p if q ) iff r')  # Doit imprimer: True
-# verification('q iff r')  # Doit imprimer: True
-# verification('not p iff r')  # Doit imprimer: True
+
+print("Par defaut voici notre Base de connaissance : \n ['p and (q or not r)', 'p and q'', 'p if q iff r', 'a and b'', 'a and not p'] \n")
+print("----_____Verification:une formule α découle de l' ensemble KB----_______")
+alpha = input("Veuillez entrer une formule propositionnelle: ")
+
+verif_deduction(alpha)
